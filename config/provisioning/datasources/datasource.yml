@@ -1,0 +1,16 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: cLoki
+    orgId: 1
+
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+- name: cLoki
+  type: loki
+  access: proxy
+  url: http://loki:3100
+  editable: true
