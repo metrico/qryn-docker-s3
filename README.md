@@ -1,6 +1,6 @@
 # cLoki + Clickhouse using S3/MINIO storage
 
-#### BETA VERSION! PLEASE REPORT BUGS AND IMPROVEMENTS
+#### THIS EXAMPLE IS INTENDED FOR TESTING
 
 This docker bundle will spin up a cLoki + Clickhouse powered stack w/ Minio/S3 storage
 
@@ -14,7 +14,7 @@ This docker bundle will spin up a cLoki + Clickhouse powered stack w/ Minio/S3 s
 * grafana
 * pastash
 
-## Setup
+## Usage
 
 ```bash
 docker-compose up
