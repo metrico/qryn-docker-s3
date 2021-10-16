@@ -1,10 +1,18 @@
-# Grafana + cLoki + paStash using S3/MINIO
+# cLoki + Clickhouse using S3/MINIO storage
 
 #### BETA VERSION! PLEASE REPORT BUGS AND IMPROVEMENTS
 
-This docker bundle will spin up a full system including Grafana, cLoki, paStash and Prometheus for testing and evaluation purposes.
+This docker bundle will spin up a cLoki + Clickhouse powered stack w/ Minio/S3 storage
 
---------
+## Components
+
+#### Core
+* clickhouse-server
+* cLoki
+* minio
+#### Add-Ons
+* grafana
+* pastash
 
 ## Setup
 
@@ -12,9 +20,5 @@ This docker bundle will spin up a full system including Grafana, cLoki, paStash 
 docker-compose up
 ```
 
-to bring up:  
-
-* Grafana      localhost:3000 (admin/admin)
-* cLoki localhost:3100
 
 
