@@ -11,11 +11,11 @@ For more details about Clickhouse and S3 storage support check out this [Altinit
 ## Components
 
 #### Core
-* cLoki
-* clickhouse-server
-* minio
+* cLoki [yml](https://github.com/metrico/cloki-docker-s3/blob/main/cloki.yml)
+* clickhouse-server [yml](https://github.com/metrico/cloki-docker-s3/blob/main/clickhouse-service.yml)
+* minio [yml](https://github.com/metrico/cloki-docker-s3/blob/main/minio-service.yml)
 #### Add-Ons
-* pastash
+* pastash [yml](https://github.com/metrico/cloki-docker-s3/blob/main/pastash.yml)
 
 ### Setup
 
@@ -29,4 +29,4 @@ docker-compose up
 * Start browsing your cheaper tags and labels
 
 ##### AWS S3
-* To use with S3 replace the settings in [storage.xml](https://github.com/metrico/cloki-docker-s3/blob/main/configs/clickhouse/config.d/storage.xml)
+* Use with any S3 compatible storage using the settings in [storage.xml](https://github.com/metrico/cloki-docker-s3/blob/main/configs/clickhouse/config.d/storage.xml)
