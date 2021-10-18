@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  cloki:
+    image: qxip/cloki
+    expose:
+      - 3100
+    ports:
+      - "3100:3100"
+    environment:
+      - CLICKHOUSE_SERVER=clickhouse1
+      - CLICKHOUSE_DB=cloki
+      - CLICKHOUSE_AUTH=default:password
+      - STORAGE_POLICY=external
+      - DEBUG=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3100/ping"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+

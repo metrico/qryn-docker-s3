@@ -1,0 +1,20 @@
+version: '2.3'
+
+services:
+  minio-client:
+    image: minio/mc
+    stdin_open: true
+    tty: true
+    entrypoint: >
+     /bin/sh -c "
+     /usr/bin/mc config host add minio http://minio:9001 minio minio123;
+     /usr/bin/mc mb minio/root;
+     touch /tmp/ready;
+     /bin/bash;
+     "
+    healthcheck:
+      test: ["CMD", "ls", "/tmp/ready"]
+      interval: 5s
+      timeout: 2s
+      retries: 60
+

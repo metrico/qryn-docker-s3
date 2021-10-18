@@ -1,0 +1,10 @@
+version: '2.3'
+
+services:
+  pastash:
+    image: qxip/pastash-loki
+    container_name: pastash
+    volumes:
+      - ./configs/pastash.conf:/config/pastash.conf
+      - /var/log:/var/log:ro
+    command: [ "pastash", "--config_file=/config/pastash.conf" ]

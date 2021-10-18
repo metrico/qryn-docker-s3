@@ -1,87 +1,58 @@
 version: '2.3'
 
 volumes:
-    grafana_data: {}
-    loki_data: {}
-    clickhouse_data: {}
+  data1-1:
+  clickhouse:
 
 services:
-  grafana:
-    image: grafana/grafana:master
-    container_name: grafana
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./config/provisioning/:/etc/grafana/provisioning/
-    environment:
-      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
-      - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_EXPLORE_ENABLED=true
-    restart: unless-stopped
-    expose:
-      - 3000
-
   minio:
-    image: minio/minio
-    container_name: minio
-    volumes:
-      - loki_data:/data
-    ports:
-      - "9001:9001"
-    environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
-    command: server --address :9001 /data1-1
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9001/minio/health/live"]
-      interval: 2s
-      timeout: 5s
-      retries: 60
+    extends:
+      file: minio-service.yml
+      service: minio
 
-  clickhouse-seed:
-    image: yandex/clickhouse-server
-    container_name: clickhouse-seed
-    volumes:
-      - clickhouse_data:/var/lib/clickhouse
-      - "./config/storage.xml:/etc/clickhouse-server/config.d/storage.xml"
-    ports:
-      - 8123:8123
-      - 9000:9000
-      - 9009:9009
+  minio-client:
+    extends:
+      file: minio-client.yml
+      service: minio-client
     depends_on:
-      - minio
-    healthcheck:
-      test: clickhouse client --query='select 1'
-      interval: 10s
-      timeout: 10s
-      retries: 10
-      start_period: 300s
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - label:disable
+      minio:
+        condition: service_healthy
+
+  clickhouse1:
+    extends:
+      file: clickhouse-service.yml
+      service: clickhouse
+    user: clickhouse:clickhouse
+    container_name: clickhouse1
+    hostname: clickhouse1
+    depends_on:
+      minio-client:
+        condition: service_healthy
 
   cloki:
-    image: qxip/cloki:latest
-    container_name: loki
-    restart: unless-stopped
-    ports:
-      - "3100:3100"
-    environment:
-      - CLICKHOUSE_SERVER=clickhouse-seed
-      - CLICKHOUSE_DB=cloki
-      - CLICKHOUSE_AUTH="default:"
-      - STORAGE_POLICY=external
-      - DEBUG=false
+    extends:
+      file: cloki.yml
+      service: cloki
+    container_name: cloki
     depends_on:
-      - clickhouse-seed
+      clickhouse1:
+        condition: service_healthy
 
   pastash:
-    image: qxip/pastash-loki
+    extends:
+      file: pastash.yml
+      service: pastash
     container_name: pastash
-    volumes:
-      - ./config/pastash.json:/config/loki.conf
-      - /var/log:/var/log:ro
     depends_on:
-      - cloki
+      clickhouse1:
+        condition: service_healthy
 
+  # dummy service which does nothing, but allows to postpone 
+  # 'docker-compose up -d' till all dependecies will go healthy
+  all_services_ready:
+    image: hello-world
+    depends_on:
+      clickhouse1:
+        condition: service_healthy
+      minio:
+        condition: service_healthy

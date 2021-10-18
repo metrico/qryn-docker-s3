@@ -1,8 +1,8 @@
 # cLoki + Clickhouse using S3/MINIO storage
 
-#### THIS EXAMPLE IS INTENDED FOR TESTING
+#### THIS EXAMPLE IS INTENDED FOR TESTING PURPOSES!
 
-This docker bundle will spin up a cLoki + Clickhouse powered stack w/ Minio/S3 storage
+This docker bundle will spin up a cLoki + Clickhouse stack w/ S3 or MINIO object storage
 
 ## Components
 
@@ -11,14 +11,19 @@ This docker bundle will spin up a cLoki + Clickhouse powered stack w/ Minio/S3 s
 * cLoki
 * minio
 #### Add-Ons
-* grafana
 * pastash
+* grafana
 
-## Usage
+## Setup
 
 ```bash
 docker-compose up
 ```
 
+#### Usage
 
+* Connect your Grafana instance to the Loki API on port 3100
+* Start browsing tags and labels
 
+#### AWS S3
+To use with S3 replace the settings in `configs/clickhouse/config.d/storage.xml`
