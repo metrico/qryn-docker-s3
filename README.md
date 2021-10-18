@@ -2,11 +2,12 @@
 
 ## [cLoki](https://github.com/lmangani/cLoki) + Clickhouse using S3/MINIO storage
 
-#### THIS EXAMPLE IS INTENDED FOR TESTING PURPOSES!
-
 This docker compose bundle will spin up a cLoki + Clickhouse stack w/ MINIO/S3 object storage
 
 For more details about Clickhouse and S3 storage support check out this [Altinity Blog](https://altinity.com/blog/clickhouse-and-s3-compatible-object-storage) and the [relevant documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-s3)
+
+#### THIS EXAMPLE IS INTENDED FOR TESTING PURPOSES!
+
 
 ## Components
 
