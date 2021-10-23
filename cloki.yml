@@ -13,9 +13,8 @@ services:
       - CLICKHOUSE_AUTH=default:password
       - STORAGE_POLICY=external
       - DEBUG=false
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3100/ping"]
-      interval: 2s
-      timeout: 5s
-      retries: 10
-
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:3100/ping"]
+#      interval: 2s
+#      timeout: 5s
+#      retries: 10
