@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/1423657/99822833-f9504780-2b53-11eb-8b28-99484eab6157.png' width=250>
+<img src='https://user-images.githubusercontent.com/1423657/147935343-598c7dfd-1412-4bad-9ac6-636994810443.png' style="margin-left:-10px" width=220>
 
 ## [cLoki](https://github.com/lmangani/cLoki) + Clickhouse using S3/MINIO storage
 
