@@ -1,8 +1,8 @@
 <img src='https://user-images.githubusercontent.com/1423657/147935343-598c7dfd-1412-4bad-9ac6-636994810443.png' style="margin-left:-10px" width=220>
 
-## [cLoki](https://github.com/lmangani/cLoki) + Clickhouse using S3/MINIO storage
+## [qryn](https://github.com/metrico/qryn) + Clickhouse using S3/MINIO storage
 
-This docker compose bundle will spin up a cLoki + Clickhouse stack w/ MINIO/S3 object storage
+This docker compose bundle will spin up qryn + Clickhouse stack w/ MINIO/S3 object storage
 
 For more details about Clickhouse and S3 storage support check out this [Altinity Blog](https://altinity.com/blog/clickhouse-and-s3-compatible-object-storage) and the [relevant documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-s3)
 
@@ -12,7 +12,7 @@ For more details about Clickhouse and S3 storage support check out this [Altinit
 ## Components
 
 #### Core
-* cLoki [yml](https://github.com/metrico/cloki-docker-s3/blob/main/cloki.yml)
+* qryn [yml](https://github.com/metrico/cloki-docker-s3/blob/main/qryn.yml)
 * clickhouse-server [yml](https://github.com/metrico/cloki-docker-s3/blob/main/clickhouse-service.yml)
 * minio [yml](https://github.com/metrico/cloki-docker-s3/blob/main/minio-service.yml)
 #### Add-Ons
