@@ -29,11 +29,11 @@ services:
       minio-client:
         condition: service_healthy
 
-  cloki:
+  qryn:
     extends:
-      file: cloki.yml
-      service: cloki
-    container_name: cloki
+      file: qryn.yml
+      service: qryn
+    container_name: qryn
     depends_on:
       clickhouse1:
         condition: service_healthy
