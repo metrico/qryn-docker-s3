@@ -4,7 +4,7 @@
 
 This docker compose bundle will spin up qryn + Clickhouse stack w/ MINIO/S3 object storage
 
-For more details about Clickhouse and S3 storage support check out this [Altinity Blog](https://altinity.com/blog/clickhouse-and-s3-compatible-object-storage) and the [relevant documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-s3)
+For more details about Clickhouse and S3 storage support check out this [Altinity Blog](https://altinity.com/blog/clickhouse-and-s3-compatible-object-storage), our [R2 Blog post](https://blog.qryn.dev/cloudflare-r2-clickhouse) or the [relevant documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-s3)
 
 #### THIS EXAMPLE IS INTENDED FOR TESTING PURPOSES!
 
