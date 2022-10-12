@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
   cloki:
-    image: qxip/cloki
+    image: qxip/qryn
     expose:
       - 3100
     ports:
