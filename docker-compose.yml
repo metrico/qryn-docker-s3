@@ -14,9 +14,6 @@ services:
     extends:
       file: minio-client.yml
       service: minio-client
-    depends_on:
-      minio:
-        condition: service_healthy
 
   clickhouse1:
     extends:
@@ -43,6 +40,33 @@ services:
       file: pastash.yml
       service: pastash
     container_name: pastash
+    depends_on:
+      clickhouse1:
+        condition: service_healthy
+
+  telegraf:
+    extends:
+      file: telegraf.yml
+      service: telegraf
+    container_name: telegraf
+    depends_on:
+      clickhouse1:
+        condition: service_healthy
+
+  vmagent:
+    extends:
+      file: vmagent.yml
+      service: vmagent
+    container_name: vmagent
+    depends_on:
+      clickhouse1:
+        condition: service_healthy
+
+  grafana:
+    extends:
+      file: grafana.yml
+      service: grafana
+    container_name: grafana
     depends_on:
       clickhouse1:
         condition: service_healthy

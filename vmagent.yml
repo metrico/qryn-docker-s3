@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  vmagent:
+    image: victoriametrics/vmagent
+    container_name: vmagent
+    hostname: vmagent
+    restart: unless-stopped
+    #volumes:
+    #  - ./configs/vmagent.conf:/etc/prometheus/prometheus.yml:ro
+    command:
+     # - "--promscrape.config=/etc/prometheus/prometheus.yml"
+      - "--remoteWrite.url=http://test:test@qryn:3100/api/v1/prom/remote/write"

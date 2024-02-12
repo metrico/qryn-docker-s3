@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    restart: unless-stopped
+    #volumes:
+    #  - ./configs/grafana.conf:/etc/grafana/grafana.conf:ro
+    ports:
+      - 3000:3000
+    volumes:
+      #- ./configs/grafana/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/prometheus-datasource.yml
+      - ./configs/grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
+      - ./configs/grafana/telegraf.json:/var/lib/grafana/dashboards/telegraf.json

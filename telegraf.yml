@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    hostname: telegraf
+    restart: unless-stopped
+    volumes:
+      - ./configs/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+

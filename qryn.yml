@@ -1,8 +1,8 @@
 version: '2.3'
 
 services:
-  cloki:
-    image: qxip/qryn
+  qryn:
+    image: qxip/qryn:bun
     expose:
       - 3100
     ports:
@@ -12,3 +12,5 @@ services:
       - CLICKHOUSE_DB=cloki
       - CLICKHOUSE_AUTH=default:password
       - STORAGE_POLICY=external
+      - QRYN_LOGIN=test
+      - QRYN_PASSWORD=test
