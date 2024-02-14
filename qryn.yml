@@ -14,3 +14,4 @@ services:
       - STORAGE_POLICY=external
       - QRYN_LOGIN=test
       - QRYN_PASSWORD=test
+      - ADVANCED_TELEGRAF_METRICS_SCHEMA=telegraf-prometheus-v2
