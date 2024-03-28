@@ -2,10 +2,8 @@ version: '2.3'
 
 services:
   clickhouse:
-    image: clickhouse/clickhouse-server
+    image: clickhouse/clickhouse-server:latest
     expose:
-      - "9000"
-      - "9009"
       - "8123"
     environment:
       CLICKHOUSE_USER: default
@@ -23,7 +21,3 @@ services:
       timeout: 10s
       retries: 10
       start_period: 30s
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - label:disable
