@@ -63,7 +63,7 @@ jobs:
           git clone https://github.com/metrico/qryn-docker-s3
           sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
       - name: Restart Services (db)
-        if: false
+        if: true
         continue-on-error: true
         uses: docker://docker
         with:
