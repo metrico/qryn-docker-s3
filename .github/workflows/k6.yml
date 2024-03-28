@@ -51,7 +51,7 @@ jobs:
           repository: metrico/qryn-bench
           path: .
           clean: false
-          set-safe-directory: false
+          set-safe-directory: true
       - name: Checkout
         uses: actions/checkout@v4
         with:
