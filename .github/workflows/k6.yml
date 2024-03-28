@@ -40,7 +40,7 @@ jobs:
           CLICKHOUSE_USER: qryn
           CLICKHOUSE_PASSWORD: qryn
         volumes:
-          - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
+          - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/storage.xml:/etc/clickhouse-server/config.d/storage.xml"
       qryn:
         image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
         options: --name qryn --hostname qryn
@@ -61,7 +61,7 @@ jobs:
           git clone https://github.com/metrico/qryn-bench
           mv qryn-bench/* ./
           git clone https://github.com/metrico/qryn-docker-s3
-          sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
+          sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/storage.xml
       - name: Restart Services (db)
         if: true
         continue-on-error: true
