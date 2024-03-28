@@ -60,6 +60,11 @@ jobs:
         uses: docker://docker
         with:
           args: docker restart clickhouse
+      - name: Restart qryn
+        # Restart ClickHouse after volumes have been checked out
+        uses: docker://docker
+        with:
+          args: docker restart qryn
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
