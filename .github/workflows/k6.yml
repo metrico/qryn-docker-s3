@@ -71,7 +71,7 @@ jobs:
         continue-on-error: true
         uses: docker://docker
         with:
-          args: docker restart clickhouse
+          args: docker restart clickhouse qryn
       - name: List services (post-restart)
         continue-on-error: true
         uses: docker://docker
@@ -88,10 +88,8 @@ jobs:
         run: |
           wget https://github.com/metrico/qryn-bench/releases/download/latest/k6-tracing -O k6-tracing
           chmod +x k6-tracing
-          
       - name: Collect Workflow Telemetry
         uses: runforesight/workflow-telemetry-action@v1.8.7
-        
       - name: Wait for Loki API
         uses: mydea/action-wait-for-api@v1
         with:
