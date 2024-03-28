@@ -26,8 +26,13 @@ jobs:
         with:
           repository: metrico/qryn-bench
           path: .
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: metrico/qryn-docker-s3
+          path: ./s3
       - name: Start containers
-        run: docker-compose up -d
+        run: cd s3 && docker-compose -f "./docker-compose.yml" up -d
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
