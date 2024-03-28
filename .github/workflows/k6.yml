@@ -21,14 +21,18 @@ jobs:
       QRYN_VERSION: "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
     services:
       minio:
-        image: minio/minio
+        image: bitnami/minio:latest
+        options: --name minio --hostname minio
         ports:
-          - "9001:9001"
+          - "9001:9000"
         env:
           MINIO_ROOT_USER: minio
           MINIO_ROOT_PASSWORD: minio123
+          MINIO_ACCESS_KEY: minio
+          MINIO_SECRET_KEY: minio123
       clickhouse:
         image: "${{ github.event.inputs.clickhouse_image || 'clickhouse/clickhouse-server' }}:${{ github.event.inputs.clickhouse_tag || 'latest' }}"
+        options: --name clickhouse --hostname clickhouse
         ports:
           - 8123:8123
         env:
@@ -37,6 +41,7 @@ jobs:
           - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
       qryn:
         image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
+        options: --name qryn --hostname qryn
         ports:
           - 3100:3100
         env:
