@@ -58,7 +58,7 @@ jobs:
       - name: Restart Services
         uses: docker://docker
         with:
-          args: docker ps -q | xargs docker restart
+          args: ps -q | xargs docker restart
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
