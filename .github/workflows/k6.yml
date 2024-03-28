@@ -65,7 +65,7 @@ jobs:
       - name: Copy Config
         uses: docker://docker
         with:
-          args: docker cp ./qryn-docker-s3/configs/config.xml clickhouse:/etc/clickhouse-server/config.d/config.xml
+          args: docker cp ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml clickhouse:/etc/clickhouse-server/config.d/storage.xml
       - name: Restart Services (db)
         if: true
         continue-on-error: true
