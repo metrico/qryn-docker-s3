@@ -37,22 +37,3 @@ services:
     depends_on:
       clickhouse1:
         condition: service_healthy
-
-  pastash:
-    extends:
-      file: pastash.yml
-      service: pastash
-    container_name: pastash
-    depends_on:
-      clickhouse1:
-        condition: service_healthy
-
-  # dummy service which does nothing, but allows to postpone 
-  # 'docker-compose up -d' till all dependecies will go healthy
-  all_services_ready:
-    image: hello-world
-    depends_on:
-      clickhouse1:
-        condition: service_healthy
-      minio:
-        condition: service_healthy
