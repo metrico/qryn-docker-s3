@@ -34,7 +34,7 @@ jobs:
         env:
           PORT: 8123
         volumes:
-          - ${{ github.workspace }}/s3/configs/clickhouse/config.d/storage.xml:/etc/clickhouse-server/config.d/storage.xml"
+          - ${{ github.workspace }}/s3/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
       qryn:
         image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
         ports:
