@@ -9,7 +9,7 @@ on:
         description: 'BuildTag for ClickHouse (latest)'
         required: false
       clickhouse_image:
-        description: 'Image for CowsDB (ghcr.io/cowsdb/cowsdb)'
+        description: 'Image for ClickHouse'
         required: false
 
 jobs:
@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     env:
-      CLICKHOUSE_VERSION: "${{ github.event.inputs.clickhouse_image || 'ghcr.io/cowsdb/cowsdb' }}:${{ github.event.inputs.clickhouse_tag || 'latest' }}"
       QRYN_VERSION: "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
     steps:
       - name: Checkout
@@ -31,6 +30,7 @@ jobs:
         with:
           repository: metrico/qryn-docker-s3
           path: ./s3
+      - run: ls -alF ./s3
       - name: Start containers
         run: cd s3 && docker-compose -f "./docker-compose.yml" up -d
       - uses: actions/setup-go@v4
