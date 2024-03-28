@@ -37,8 +37,8 @@ jobs:
           - 8123:8123
         env:
           PORT: 8123
-        volumes:
-          - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
+  #      volumes:
+  #        - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
       qryn:
         image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
         options: --name qryn --hostname qryn
@@ -47,7 +47,6 @@ jobs:
         env:
           CLICKHOUSE_SERVER: clickhouse
           CLICKHOUSE_AUTH: "default:password"
-          STORAGE_POLICY: "external"
           
     steps:
       - name: List services (pre)
@@ -60,7 +59,7 @@ jobs:
           git clone https://github.com/metrico/qryn-bench
           mv qryn-bench/* ./
           git clone https://github.com/metrico/qryn-docker-s3
-          sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
+          # sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
       - name: List services (post)
         id: services
         continue-on-error: true
@@ -103,7 +102,7 @@ jobs:
           url: "http://qryn:3100/loki/api/v1/label"
           expected-response-field: "status"
           expected-response-field-value: "success"
-          timeout: 30
+          timeout: 60
       - name: Run k6 loki test
         run: ./k6 run --out csv=results.csv loki/qryn-loki-loadtest.js
         env:
