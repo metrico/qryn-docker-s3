@@ -67,11 +67,16 @@ jobs:
         uses: docker://docker
         with:
           args: docker ps
-      - name: Restart Services
+      - name: Restart Services (db)
         continue-on-error: true
         uses: docker://docker
         with:
           args: docker restart clickhouse
+      - name: Restart Services (qryn)
+        continue-on-error: true
+        uses: docker://docker
+        with:
+          args: docker restart qryn
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
