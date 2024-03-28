@@ -50,8 +50,7 @@ jobs:
           git clone https://github.com/metrico/qryn-bench
           mv qryn-bench/* ./
           git clone https://github.com/metrico/qryn-docker-s3
-          chmod -R 777 ${{ github.workspace }}/clickhouse
-          cp -r ./qryn-docker-s3/configs/* ${{ github.workspace }}/clickhouse/configs/
+          sudo cp -r ./qryn-docker-s3/configs/* ${{ github.workspace }}/clickhouse/configs/
       - name: Restart ClickHouse
         # Restart ClickHouse after volumes have been checked out
         uses: docker://docker
