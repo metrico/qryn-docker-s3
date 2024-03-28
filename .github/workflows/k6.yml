@@ -50,21 +50,15 @@ jobs:
           git clone https://github.com/metrico/qryn-bench
           mv qryn-bench/* ./
           git clone https://github.com/metrico/qryn-docker-s3
-          sudo cp -r ./qryn-docker-s3/configs/* ${{ github.workspace }}/clickhouse/configs/
+          sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
       - name: List services
         uses: docker://docker
         with:
           args: docker ps -q
-      - name: Restart ClickHouse
-        # Restart ClickHouse after volumes have been checked out
+      - name: Restart Services
         uses: docker://docker
         with:
-          args: docker restart clickhouse
-      - name: Restart qryn
-        # Restart qryn after ClickHouse
-        uses: docker://docker
-        with:
-          args: docker restart qryn
+          args: docker restart $(docker ps -q)
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
