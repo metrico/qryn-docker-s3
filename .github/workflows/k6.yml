@@ -100,7 +100,7 @@ jobs:
       - name: Wait for Loki API
         uses: mydea/action-wait-for-api@v1
         with:
-          url: "http://localhost:3100/loki/api/v1/label"
+          url: "http://qryn:3100/loki/api/v1/label"
           expected-response-field: "status"
           expected-response-field-value: "success"
           timeout: 30
@@ -114,15 +114,15 @@ jobs:
       - name: Wait for Prom API
         uses: mydea/action-wait-for-api@v1
         with:
-          url: "http://localhost:3100/api/v1/query"
+          url: "http://qryn:3100/api/v1/query"
           expected-response-field: "status"
           expected-response-field-value: "success"
           timeout: 30
       - name: Run k6 prometheus test
         run: ./k6 run --out csv=results.csv prometheus/qryn-loadtest.js 
         env:
-          K6_WRITE_HOSTNAME: "localhost:3100"
-          K6_READ_HOSTNAME: "localhost:3100"
+          K6_WRITE_HOSTNAME: "qryn:3100"
+          K6_READ_HOSTNAME: "qryn:3100"
           K6_WRITE_REQUEST_RATE: 1
           K6_WRITE_SERIES_PER_REQUEST: 5
           K6_READ_REQUEST_RATE: 1
@@ -134,11 +134,11 @@ jobs:
       - name: Wait for Tempo API
         uses: mydea/action-wait-for-api@v1
         with:
-          url: "http://localhost:3100/api/search/tags"
+          url: "http://qryn:3100/api/search/tags"
       - name: Run k6 tempo test
         run: ./k6-tracing run --out csv=results.csv tempo/qryn-tempo-template.js
         env:
-          K6_TEMPO_ENDPOINT: "http://localhost:3100"
+          K6_TEMPO_ENDPOINT: "http://qryn:3100"
           K6_VUS: 1
           K6_DURATION_MINUTES: 1
           K6_ITERATIONS: 20
