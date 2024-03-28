@@ -45,21 +45,12 @@ jobs:
           STORAGE_POLICY: "external"
           
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: metrico/qryn-bench
-          path: .
-          clean: false
-          set-safe-directory: true
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: metrico/qryn-docker-s3
-          path: ./s3
-          clean: false
-          set-safe-directory: false
-      - run: mv ./s3/* ./clickhouse/
+      - name: Manual Checkout
+        run: |
+          git clone https://github.com/metrico/qryn-bench
+          mv qryn-bench/* ./
+          git clone https://github.com/metrico/qryn-docker-s3
+          cp -r ./qryn-docker-s3/configs/* ./clickhouse/configs/*
       - name: Restart ClickHouse
         # Restart ClickHouse after volumes have been checked out
         uses: docker://docker
