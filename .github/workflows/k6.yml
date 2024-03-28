@@ -32,7 +32,7 @@ jobs:
           path: ./s3
       - run: ls -alF ./s3
       - name: Start containers
-        run: cd s3 && docker-compose -f "./docker-compose.yml" up -d
+        run: cd s3 && docker-compose --project-directory ./ up -d
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
