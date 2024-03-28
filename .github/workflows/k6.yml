@@ -45,17 +45,23 @@ jobs:
           STORAGE_POLICY: "external"
           
     steps:
+      - name: List services (pre)
+        continue-on-error: true
+        uses: docker://docker
+        with:
+          args: docker ps
       - name: Manual Checkout
         run: |
           git clone https://github.com/metrico/qryn-bench
           mv qryn-bench/* ./
           git clone https://github.com/metrico/qryn-docker-s3
           sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
-      - name: List services
+      - name: List services (post)
         id: services
+        continue-on-error: true
         uses: docker://docker
         with:
-          args: docker ps -q
+          args: docker ps
       - name: Restart Services
         continue-on-error: true
         uses: docker://docker
