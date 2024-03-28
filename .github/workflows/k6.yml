@@ -77,6 +77,11 @@ jobs:
         uses: docker://docker
         with:
           args: docker restart qryn
+      - name: List services (post-restart)
+        continue-on-error: true
+        uses: docker://docker
+        with:
+          args: docker ps
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
