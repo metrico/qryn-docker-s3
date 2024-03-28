@@ -19,6 +19,31 @@ jobs:
     continue-on-error: true
     env:
       QRYN_VERSION: "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
+    services:
+      minio:
+        image: minio/minio
+        ports:
+          - "9001:9001"
+        env:
+          MINIO_ROOT_USER: minio
+          MINIO_ROOT_PASSWORD: minio123
+      clickhouse:
+        image: "${{ github.event.inputs.clickhouse_image || 'clickhouse/clickhouse-server' }}:${{ github.event.inputs.clickhouse_tag || 'latest' }}"
+        ports:
+          - 8123:8123
+        env:
+          PORT: 8123
+        volumes:
+          - ${{ github.workspace }}/s3/configs/clickhouse/config.d/storage.xml:/etc/clickhouse-server/config.d/storage.xml"
+      qryn:
+        image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
+        ports:
+          - 3100:3100
+        env:
+          CLICKHOUSE_SERVER: clickhouse
+          CLICKHOUSE_AUTH: "default:password"
+          STORAGE_POLICY: "external"
+          
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,9 +55,11 @@ jobs:
         with:
           repository: metrico/qryn-docker-s3
           path: ./s3
-      - run: ls -alF ./s3
-      - name: Start containers
-        run: cd s3 && docker-compose --project-directory ./ up -d
+      - name: Restart ClickHouse
+        # Restart ClickHouse after volumes have been checked out
+        uses: docker://docker
+        with:
+          args: docker restart clickhouse
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
