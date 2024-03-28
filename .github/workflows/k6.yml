@@ -57,9 +57,10 @@ jobs:
         with:
           args: docker ps -q
       - name: Restart Services
+        continue-on-error: true
         uses: docker://docker
         with:
-          args: docker restart ${{join(steps.services.outputs.stdout, '\n')}}
+          args: docker restart ${{join(steps.services.outputs.*, '\n')}}
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
