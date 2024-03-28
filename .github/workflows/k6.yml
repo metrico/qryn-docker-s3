@@ -34,7 +34,7 @@ jobs:
         env:
           PORT: 8123
         volumes:
-          - ${{ github.workspace }}/s3/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
+          - ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d:/etc/clickhouse-server/config.d"
       qryn:
         image:  "ghcr.io/metrico/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}"
         ports:
@@ -59,6 +59,7 @@ jobs:
           path: ./s3
           clean: false
           set-safe-directory: false
+      - run: mv ./s3/* ./clickhouse/
       - name: Restart ClickHouse
         # Restart ClickHouse after volumes have been checked out
         uses: docker://docker
