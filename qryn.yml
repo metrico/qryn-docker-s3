@@ -1,7 +1,7 @@
 version: '2.3'
 
 services:
-  cloki:
+  qryn:
     image: qxip/qryn
     expose:
       - 3100
