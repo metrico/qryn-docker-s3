@@ -93,7 +93,7 @@ jobs:
           K6_VUS: 1
           K6_ITERACTIONS: 50
       - run: mv summary.txt loki_summary.txt
-        if: always()
+        #if: always()
       - name: Wait for Prom API
         uses: mydea/action-wait-for-api@v1
         with:
@@ -113,7 +113,7 @@ jobs:
           K6_SCRAPE_INTERVAL_SECONDS: 15
           RAMP_UP_MIN: 0
       - run: mv summary.txt prom_summary.txt
-        if: always()
+        #if: always()
       - name: Wait for Tempo API
         uses: mydea/action-wait-for-api@v1
         with:
@@ -126,14 +126,14 @@ jobs:
           K6_DURATION_MINUTES: 1
           K6_ITERATIONS: 20
       - run: mv summary.txt tempo_summary.txt
-        if: always()
+        #if: always()
       - name: Strip Text report
-        if: always()
+        #if: always()
         run: |
           sed -i 's/[^[:print:]]/*/' *_summary.txt
           sed -i 's/[\d128-\d255]//g' *_summary.txt
       - uses: actions/upload-artifact@v3
-        if: always()
+        #if: always()
         with:
           name: results
           path: |
@@ -141,7 +141,7 @@ jobs:
              prom_summary.txt
              tempo_summary.txt
       - name: Summary Report
-        if: always()
+        #if: always()
         run: |
           echo "### qryn image" >> $GITHUB_STEP_SUMMARY
           echo "qxip/qryn:${{ github.event.inputs.qryn_tag || 'latest' }}" >> $GITHUB_STEP_SUMMARY
