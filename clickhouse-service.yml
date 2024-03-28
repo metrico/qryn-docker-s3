@@ -9,12 +9,7 @@ services:
       CLICKHOUSE_USER: default
       CLICKHOUSE_PASSWORD: password
     volumes:
-      - "./configs/clickhouse/config.d/logs.xml:/etc/clickhouse-server/config.d/logs.xml"
-      - "./configs/clickhouse/config.d/ports.xml:/etc/clickhouse-server/config.d/ports.xml"
-      - "./configs/clickhouse/config.d/ssl.xml:/etc/clickhouse-server/config.d/ssl.xml"
       - "./configs/clickhouse/config.d/storage.xml:/etc/clickhouse-server/config.d/storage.xml"
-      - "./configs/clickhouse/ssl:/etc/clickhouse-server/ssl"
-      - "./configs/clickhouse/config.xml:/etc/clickhouse-server/config.xml"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
       interval: 2s
