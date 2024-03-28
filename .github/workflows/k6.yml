@@ -52,13 +52,14 @@ jobs:
           git clone https://github.com/metrico/qryn-docker-s3
           sudo cp -r ./qryn-docker-s3/configs/clickhouse/config.d/storage.xml ${{ github.workspace }}/clickhouse/configs/clickhouse/config.d/
       - name: List services
+        id: services
         uses: docker://docker
         with:
           args: docker ps -q
       - name: Restart Services
         uses: docker://docker
         with:
-          args: ps -q | xargs docker restart
+          args: docker restart ${{join(steps.services.outputs.stdout, '\n')}}
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
