@@ -60,7 +60,7 @@ jobs:
         continue-on-error: true
         uses: docker://docker
         with:
-          args: docker restart ${{join(steps.services.outputs.*, '\n')}}
+          args: docker restart clickhouse
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
