@@ -72,6 +72,12 @@ jobs:
         uses: docker://docker
         with:
           args: docker restart clickhouse
+      - name: Restart Services (qryn)
+        if: true
+        continue-on-error: true
+        uses: docker://docker
+        with:
+          args: docker restart qryn
       - name: List services (post-restart)
         continue-on-error: true
         uses: docker://docker
